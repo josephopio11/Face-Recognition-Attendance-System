@@ -10,8 +10,10 @@ images = []
 class_names = []
 my_list = os.listdir(path)
 
-# Create a new attendance list
+# Create a name for the new attendance list
 attendance_list = str(date.today()) + '_attendance' + '.csv'
+
+# Create the attendance list if it doesn't exist
 try:
     new_attendance_list = open(attendance_list, 'x')
 except:
@@ -25,12 +27,15 @@ for cl in my_list:
     images.append(current_image)
     class_names.append(os.path.splitext(cl)[0])
 
+
 def find_encodings(images_fn):
     encoded_list = []
+
     for image_fn in images_fn:
         image_fn = cv2.cvtColor(image_fn, cv2.COLOR_BGR2RGB)
         encode = face_recognition.face_encodings(image_fn)[0]
         encoded_list.append(encode)
+
     return encoded_list
 
 
@@ -38,6 +43,7 @@ def mark_attendance(name):
     with open(attendance_list, 'r+') as f:
         my_data_list = f.readlines()
         name_list = []
+        
         for line in my_data_list:
             entry = line.split(',')
             name_list.append(entry[0])
@@ -52,7 +58,7 @@ encoded_list_known = find_encodings(images)
 print('Encoding of Images Done')
 print("Now Starting Webcam")
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while True:
     success, image = cap.read()

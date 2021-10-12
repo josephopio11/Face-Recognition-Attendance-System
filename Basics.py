@@ -5,6 +5,6 @@ import numpy as np
 import face_recognition
 
 
-name = 'joseph_'+ str(date.today()) + '.csv'
+name = str(date.today()) + '_joseph' + '.csv'
 
 print(name)
