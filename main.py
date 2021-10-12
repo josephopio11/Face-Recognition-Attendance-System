@@ -2,20 +2,31 @@ import cv2
 import numpy as np
 import face_recognition
 import os
-from datetime import datetime
+from datetime import datetime, date
 
+print('Launching system')
 path = 'people_faces'
 images = []
 class_names = []
 my_list = os.listdir(path)
-print(my_list)
+
+# Create a new attendance list
+attendance_list = str(date.today()) + 'attendance_' + '.csv'
+try:
+    new_attendance_list = open(attendance_list, 'x')
+except:
+    print("Attendance file already exists")
+    pass
+
+print('Encoding faces')
 
 for cl in my_list:
     current_image = cv2.imread(f'{path}/{cl}')
     images.append(current_image)
     class_names.append(os.path.splitext(cl)[0])
 
-print(class_names)
+
+# print(class_names)
 
 
 def find_encodings(images_fn):
@@ -28,7 +39,7 @@ def find_encodings(images_fn):
 
 
 def mark_attendance(name):
-    with open('attendance_list.csv', 'r+') as f:
+    with open(attendance_list, 'r+') as f:
         my_data_list = f.readlines()
         name_list = []
         for line in my_data_list:

@@ -3,3 +3,11 @@
 /people_faces/Trevor Noah.jpg
 /people_faces/Yoweri Museveni.jpg
 /venv
+/Backup Program.spec
+/build
+/__pycache__
+/dist
+/main.exe
+/main.spec
+.gitignore
+/.gitignore
