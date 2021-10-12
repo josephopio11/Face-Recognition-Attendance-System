@@ -11,11 +11,11 @@ class_names = []
 my_list = os.listdir(path)
 
 # Create a new attendance list
-attendance_list = str(date.today()) + 'attendance_' + '.csv'
+attendance_list = str(date.today()) + '_attendance' + '.csv'
 try:
     new_attendance_list = open(attendance_list, 'x')
 except:
-    print("Attendance file already exists")
+    print("Attendance list already exists")
     pass
 
 print('Encoding faces')
@@ -24,10 +24,6 @@ for cl in my_list:
     current_image = cv2.imread(f'{path}/{cl}')
     images.append(current_image)
     class_names.append(os.path.splitext(cl)[0])
-
-
-# print(class_names)
-
 
 def find_encodings(images_fn):
     encoded_list = []
@@ -56,7 +52,7 @@ encoded_list_known = find_encodings(images)
 print('Encoding of Images Done')
 print("Now Starting Webcam")
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 while True:
     success, image = cap.read()
@@ -85,5 +81,5 @@ while True:
 
             mark_attendance(name)
 
-    cv2.imshow('Webcam', image)
+    cv2.imshow('Attendance Management System', image)
     cv2.waitKey(1)
