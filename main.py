@@ -16,6 +16,9 @@ attendance_list = str(date.today()) + '_attendance' + '.csv'
 # Create the attendance list if it doesn't exist
 try:
     new_attendance_list = open(attendance_list, 'x')
+    new_attendance_list.writelines(f'Name,Time\n')
+    new_attendance_list.close()
+
 except:
     print("Attendance list already exists")
     pass
@@ -43,7 +46,7 @@ def mark_attendance(name):
     with open(attendance_list, 'r+') as f:
         my_data_list = f.readlines()
         name_list = []
-        
+
         for line in my_data_list:
             entry = line.split(',')
             name_list.append(entry[0])
@@ -58,7 +61,7 @@ encoded_list_known = find_encodings(images)
 print('Encoding of Images Done')
 print("Now Starting Webcam")
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 while True:
     success, image = cap.read()
