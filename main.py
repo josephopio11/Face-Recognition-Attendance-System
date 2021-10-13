@@ -13,12 +13,12 @@ my_list = os.listdir(path)
 # Create a name for the new attendance list
 attendance_list = str(date.today()) + '_attendance' + '.csv'
 
-# Create the attendance list if it doesn't exist
+# Create the attendance list if it doesn't exist and add the titles Name and Time
 try:
     new_attendance_list = open(attendance_list, 'x')
     new_attendance_list.writelines(f'Name,Time\n')
     new_attendance_list.close()
-
+# If the list exists, it displays that the List is already existing and skips
 except:
     print("Attendance list already exists")
     pass
