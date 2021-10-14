@@ -13,12 +13,13 @@ my_list = os.listdir(path)
 # Create a name for the new attendance list
 attendance_list = str(date.today()) + '_attendance' + '.csv'
 
-# Create the attendance list if it doesn't exist and add the titles Name and Time
+# Create the attendance list if it doesn't exist and
+# add the Date and the titles Name and Time
 try:
     new_attendance_list = open(attendance_list, 'x')
-    new_attendance_list.writelines(f'Name,Time\n')
+    new_attendance_list.writelines(f'Date:,{str(date.today())}\nName,Time')
     new_attendance_list.close()
-# If the list exists, it displays that the List is already existing and skips
+# If the list exists, it displays that the List is already existing and skips all this section
 except:
     print("Attendance list already exists")
     pass
@@ -42,7 +43,7 @@ def find_encodings(images_fn):
     return encoded_list
 
 
-def mark_attendance(name):
+def mark_attendance(name_fn):
     with open(attendance_list, 'r+') as f:
         my_data_list = f.readlines()
         name_list = []
@@ -51,10 +52,13 @@ def mark_attendance(name):
             entry = line.split(',')
             name_list.append(entry[0])
 
-        if name not in name_list:
+        if name_fn not in name_list:
             now = datetime.now()
             date_time_string = now.strftime('%H:%M:%S')
-            f.writelines(f'\n{name},{date_time_string}')
+            try:
+                f.writelines(f'\n{name_fn},{date_time_string}')
+            except:
+                print("Error: Attendance file locked, please close any programs.")
 
 
 encoded_list_known = find_encodings(images)
